@@ -26,8 +26,8 @@ def main():
     # groq_api_key = os.environ.get(name)
     # print(groq_api_key)
     groq_api_key = st.secrets["GROQ_API_KEY"]
-    #groq_api_key = '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'
-    # Display the Groq logo
+
+
     spacer, col = st.columns([5, 1])  
     with col:  
         st.image('img.png')
