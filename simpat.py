@@ -25,14 +25,17 @@ def main():
     # os.environ.get(name)
     # groq_api_key = os.environ.get(name)
     # print(groq_api_key)
-    groq_api_key = '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'
+    #groq_api_key = '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'
+
+    groq_api_key = st.secrets["GROQ_API_KEY"]
+
     # Display the Groq logo
     spacer, col = st.columns([5, 1])  
     with col:  
         st.image('groqcloud_darkmode.png')
 
     # The title and greeting message of the Streamlit application
-    st.title("AI-бот на LLM последнего поколения")
+    st.title("AI-Имитатор пациента на LLM последнего поколения")
     st.write("Привет!  :)")
 
     # Add customization options to the sidebar
