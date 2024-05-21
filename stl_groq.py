@@ -16,7 +16,7 @@ def icon(emoji: str):
 
 #icon("🏎️")
 
-st.subheader("Sechenov Patient Simulator App", divider="rainbow", anchor=False)
+st.subheader("Sechenov.DataMed  AI-PatientSimulator", divider="rainbow", anchor=False)
 
 client = Groq(
     #api_key=st.secrets["GROQ_API_KEY"],
