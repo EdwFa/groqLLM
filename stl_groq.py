@@ -51,6 +51,12 @@ model_option = st.sidebar.selectbox(
     format_func=lambda x: models[x]["name"],
     index=1  # Default to llama3-70B
 )
+temper = st.sidebar.number_input(
+    "Установите температуру модели",
+    min_value=0,
+    max_value=2, value=0.5, step=0.01,
+)
+
 # Detect model change and clear chat history if model has changed
 if st.session_state.selected_model != model_option:
     st.session_state.messages = []
