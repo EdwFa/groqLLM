@@ -33,7 +33,7 @@ def main():
 
     # The title and greeting message of the Streamlit application
     st.title("AI-бот на LLM последнего поколения")
-    st.write("Привет! Я ИЦМ-бот, готов ответить на все чему учили в Москве на 5-ом этаже Никитского б-ра :)")
+    st.write("Привет!  :)")
 
     # Add customization options to the sidebar
     st.sidebar.title('Настройки')
