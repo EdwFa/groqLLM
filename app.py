@@ -25,7 +25,8 @@ def main():
     # os.environ.get(name)
     # groq_api_key = os.environ.get(name)
     # print(groq_api_key)
-    groq_api_key = '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'
+    groq_api_key = st.secrets["GROQ_API_KEY"]
+    #groq_api_key = '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'
     # Display the Groq logo
     spacer, col = st.columns([5, 1])  
     with col:  
@@ -36,12 +37,14 @@ def main():
 
     # Add customization options to the sidebar
     st.sidebar.title('Настройки')
-    system_prompt = st.sidebar.text_input("Промт")
     model = st.sidebar.selectbox(
         'Модель',
         ['llama3-70b-8192','llama3-8b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it']
     )
     conversational_memory_length = st.sidebar.slider('Глубина памяти:', 1, 10, value = 7)
+
+    system_prompt = st.sidebar.text_area("Профиль пациента :")
+
 
     memory = ConversationBufferWindowMemory(k=conversational_memory_length, memory_key="chat_history", return_messages=True)
 
