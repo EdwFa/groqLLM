@@ -43,7 +43,7 @@ models = {
 st.sidebar.title('Настройки')
 system_prompt = st.sidebar.text_input("Промт:")
 model_option = st.sidebar.selectbox(
-    "Choose a model:",
+    "Модель:",
     options=list(models.keys()),
     format_func=lambda x: models[x]["name"],
     index=1  # Default to llama3-70B
@@ -56,16 +56,15 @@ if st.session_state.selected_model != model_option:
 max_tokens_range = models[model_option]["tokens"]
 
 
-
 # Adjust max_tokens slider dynamically based on the selected model
 max_tokens = st.sidebar.slider(
-    "Max Tokens:",
+    "Максимальное кол-во токенов:",
     min_value=512,  # Minimum value to allow some flexibility
     max_value=max_tokens_range,
     # Default value or max allowed if less
     value=min(32768, max_tokens_range),
     step=512,
-    help=f"Adjust the maximum number of tokens (words) for the model's response. Max for selected model: {max_tokens_range}"
+    help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
 )
 
 
@@ -121,6 +120,7 @@ if prompt := st.chat_input("Enter your prompt here..."):
             messages=[
                 {
                     "role": m["role"],
+                    "promt": "Представь себе что ты больной пациент на приеме у врача. У тебя высокая температура и болит горло. Отвечай на вопросы.",
                     "content": m["content"]
                 }
                 for m in st.session_state.messages
