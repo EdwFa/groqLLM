@@ -37,7 +37,7 @@ def main():
 
     # Add customization options to the sidebar
     st.sidebar.title('Настройки')
-    system_prompt = st.sidebar.text_input("Промты:")
+    system_prompt = st.sidebar.text_input("Промт:")
     model = st.sidebar.selectbox(
         'Модели',
         ['llama3-70b-8192','llama3-8b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it']
