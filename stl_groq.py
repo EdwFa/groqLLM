@@ -3,7 +3,7 @@ from typing import Generator
 from groq import Groq
 
 st.set_page_config(page_icon="💬", layout="wide",
-                   page_title="Groq Goes Brrrrrrrr...")
+                   page_title="LLM-Brrrrrrrr...")
 
 
 def icon(emoji: str):
@@ -40,8 +40,8 @@ models = {
 }
 
 # Add customization options to the sidebar
-st.sidebar.title('Настройки')
-system_prompt = st.sidebar.text_input("Промт:")
+st.sidebar.title('Параметры')
+#system_prompt = st.sidebar.text_input("Промт:")
 model_option = st.sidebar.selectbox(
     "Модель:",
     options=list(models.keys()),
