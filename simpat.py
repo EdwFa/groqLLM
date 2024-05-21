@@ -29,24 +29,24 @@ def main():
     # Display the Groq logo
     spacer, col = st.columns([5, 1])  
     with col:  
-        st.image('img.png')
+        st.image('groqcloud_darkmode.png')
 
     # The title and greeting message of the Streamlit application
-    st.title("ЧатБот с Никитского бульвара")
-    st.write("Привет! Я AI-чатбот, которого учили на 5-ом этаже Никитского бульвара:) Спрашивайте!")
+    st.title("AI-бот на LLM последнего поколения")
+    st.write("Привет! Я ИЦМ-бот, готов ответить на все чему учили в Москве на 5-ом этаже Никитского б-ра :)")
 
     # Add customization options to the sidebar
     st.sidebar.title('Настройки')
-    system_prompt = st.sidebar.text_input("Промт")
+    system_prompt = st.sidebar.text_input("Промты:")
     model = st.sidebar.selectbox(
-        'Модель',
+        'Модели',
         ['llama3-70b-8192','llama3-8b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it']
     )
-    conversational_memory_length = st.sidebar.slider('Глубина памяти:', 1, 10, value = 7)
+    conversational_memory_length = st.sidebar.slider('Conversational memory length:', 1, 10, value = 5)
 
     memory = ConversationBufferWindowMemory(k=conversational_memory_length, memory_key="chat_history", return_messages=True)
 
-    user_question = st.text_input("Ask a question:")
+    user_question = st.text_input("Ваш вопрос:")
 
     # session state variable
     if 'chat_history' not in st.session_state:
@@ -54,8 +54,8 @@ def main():
     else:
         for message in st.session_state.chat_history:
             memory.save_context(
-                {'input':message['human']},
-                {'output':message['AI']}
+                {'input':message['Человек']},
+                {'output':message['ИЦМ-AI']}
                 )
 
 
