@@ -29,8 +29,8 @@ def icon(emoji: str):
 st.subheader("Sechenov.DataMed - Quality assessor for LLM models", divider="rainbow", anchor=False)
 
 client = Groq(
-    #api_key=st.secrets["GROQ_API_KEY"],
-    api_key="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"
+    api_key=st.secrets["GROQ_API_KEY"],
+    # api_key="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"
 )
 
 # Initialize chat history and selected model
