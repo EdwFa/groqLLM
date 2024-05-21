@@ -70,13 +70,15 @@ max_tokens = st.sidebar.slider(
 )
 
 temper = st.sidebar.slider(
-    label = "Температура :",
-    min_value=0,
-    max_value=2,
+    "Температура:",
+    min_value=0,  # Minimum value
+    max_value=1,
+    # Default value or max allowed if less
     value=0.5,
     step=0.01,
-    help="Настройте температуру для генерации ответа модели"
+    help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
 )
+
 
 top_P = st.sidebar.slider(
     label = "Тop P :",
