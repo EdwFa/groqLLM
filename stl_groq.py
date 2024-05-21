@@ -6,6 +6,16 @@ st.set_page_config(page_icon="💬", layout="wide",
                    page_title="LLM-Brrrrrrrr...")
 
 
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
 def icon(emoji: str):
     """Shows an emoji as a Notion-style page icon."""
     st.write(
