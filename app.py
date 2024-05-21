@@ -32,8 +32,7 @@ def main():
         st.image('img.png')
 
     # The title and greeting message of the Streamlit application
-    st.title("ЧатБот с Никитского бульвара")
-    st.write("Привет! Я AI-чатбот, которого учили на 5-ом этаже Никитского бульвара:) Спрашивайте!")
+    st.title("Имитатор пациента")
 
     # Add customization options to the sidebar
     st.sidebar.title('Настройки')

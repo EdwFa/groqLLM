@@ -35,17 +35,19 @@ def main():
         st.image('groqcloud_darkmode.png')
 
     # The title and greeting message of the Streamlit application
-    st.title("AI-Имитатор пациента на LLM последнего поколения")
-    st.write("Привет!  :)")
+    st.title("AI-Имитатор пациента")
+    # st.write("Привет!  :)")
 
     # Add customization options to the sidebar
-    st.sidebar.title('Настройки')
-    system_prompt = st.sidebar.text_input("Промт:")
+    st.sidebar.title('Настройки модели')
     model = st.sidebar.selectbox(
         'Модели',
         ['llama3-70b-8192','llama3-8b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it']
     )
     conversational_memory_length = st.sidebar.slider('Conversational memory length:', 1, 10, value = 5)
+
+    system_prompt = st.sidebar.text_input("Профиль пациента :")
+
 
     memory = ConversationBufferWindowMemory(k=conversational_memory_length, memory_key="chat_history", return_messages=True)
 
