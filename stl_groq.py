@@ -69,6 +69,27 @@ max_tokens = st.sidebar.slider(
     help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
 )
 
+temp = st.sidebar.slider(
+    "Температура :",
+    min_value=0,  # Minimum value
+    max_value=2,
+    # Default value or max allowed if less
+    value=0.5,
+    step=0.01,
+    help="Настройте температуру для генерации ответа модели"
+)
+
+top_P = st.sidebar.slider(
+    "Тop P :",
+    min_value=0,  # Minimum value
+    max_value=1,
+    # Default value or max allowed if less
+    value=1,
+    step=0.01,
+    help="Настройте параметр Top_P (по умолчанию=1)"
+)
+
+
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
     avatar = '🤖' if message["role"] == "assistant" else '👨‍💻'
@@ -99,7 +120,10 @@ if prompt := st.chat_input("Задавайте вопрос ..."):
                 for m in st.session_state.messages
             ],
             max_tokens=max_tokens,
-            stream=True
+            temperature = temp,
+            top_p = top_P,
+            stream=True,
+            stop = None
         )
 
         # Use the generator function with st.write_stream
