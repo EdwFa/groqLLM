@@ -16,7 +16,7 @@ def icon(emoji: str):
 
 #icon("🏎️")
 
-st.subheader("Sechenov.DataMed  AI-PatientSimulator", divider="rainbow", anchor=False)
+st.subheader("Sechenov.DataMed - Quality assessor for LLM models", divider="rainbow", anchor=False)
 
 client = Groq(
     #api_key=st.secrets["GROQ_API_KEY"],
@@ -107,7 +107,7 @@ def generate_chat_responses(chat_completion) -> Generator[str, None, None]:
             yield chunk.choices[0].delta.content
 
 
-if prompt := st.chat_input("Enter your prompt here..."):
+if prompt := st.chat_input("Задавайте вопрос ..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.chat_message("user", avatar='👨‍💻'):
@@ -120,7 +120,7 @@ if prompt := st.chat_input("Enter your prompt here..."):
             messages=[
                 {
                     "role": m["role"],
-                    "prompt": "Представь себе что ты больной пациент на приеме у врача. У тебя высокая температура и болит горло. Отвечай на вопросы.",
+         #           "prompt": "Представь себе что ты больной пациент на приеме у врача. У тебя высокая температура и болит горло. Отвечай на вопросы.",
                     "content": m["content"]
                 }
                 for m in st.session_state.messages
