@@ -68,27 +68,32 @@ max_tokens = st.sidebar.slider(
     step=256,
     help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
 )
-
-temper = st.sidebar.slider(
-    "Температура:",
-    min_value=0,  # Minimum value
-    max_value=1,
-    # Default value or max allowed if less
-    value=0.5,
-    step=0.01,
-    help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
+temper = st.number_input(
+    "Установите температуру модели",
+    min_value=0,
+    max_value=2, value=0.5, step=0.01,
 )
-
-
-top_P = st.sidebar.slider(
-    label = "Тop P :",
-    min_value=0,  # Minimum value
-    max_value=1,
-    # Default value or max allowed if less
-    value=1,
-    step=0.01,
-    help="Настройте параметр Top_P (по умолчанию=1)"
-)
+st.write("Temperature - ", temper)
+# temper = st.sidebar.slider(
+#     "Температура:",
+#     min_value=0,  # Minimum value
+#     max_value=1,
+#     # Default value or max allowed if less
+#     value=0.5,
+#     step=0.01,
+#     help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
+# )
+#
+#
+# top_P = st.sidebar.slider(
+#     label = "Тop P :",
+#     min_value=0,  # Minimum value
+#     max_value=1,
+#     # Default value or max allowed if less
+#     value=1,
+#     step=0.01,
+#     help="Настройте параметр Top_P (по умолчанию=1)"
+# )
 
 
 # Display chat messages from history on app rerun
@@ -121,8 +126,8 @@ if prompt := st.chat_input("Задавайте вопрос ..."):
                 for m in st.session_state.messages
             ],
             max_tokens=max_tokens,
-            temperature = temper,
-            top_p = top_P,
+            temperature = 0.5,
+            top_p = 1,
             stream=True,
             stop = None
         )
