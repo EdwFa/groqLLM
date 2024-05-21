@@ -37,11 +37,22 @@ def main():
 
     # Add customization options to the sidebar
     st.sidebar.title('Настройки')
-    model = st.sidebar.selectbox(
-        'Модель',
-        ['llama3-70b-8192','llama3-8b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it']
-    )
+    # model = st.sidebar.selectbox(
+    #     'Модель',
+    #     ['llama3-70b-8192','llama3-8b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it']
+    # )
+    model = 'llama3-70b-8192'
     conversational_memory_length = st.sidebar.slider('Глубина памяти:', 1, 10, value = 7)
+
+    max_tokens = st.sidebar.slider(
+        "Контекстное окно:",
+        min_value=512,  # Minimum value
+        max_value=8192,
+        # Default value or max allowed if less
+        value=8192,
+        step=256,
+        help="Настройте максимальное контекстное окно"
+    )
 
     system_prompt = st.sidebar.text_area("Профиль пациента :")
 
