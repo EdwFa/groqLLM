@@ -69,8 +69,8 @@ max_tokens = st.sidebar.slider(
     help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
 )
 
-temp = st.sidebar.slider(
-    "Температура :",
+temper = st.sidebar.slider(
+    label = "Температура :",
     min_value=0,
     max_value=2,
     value=0.5,
@@ -79,7 +79,7 @@ temp = st.sidebar.slider(
 )
 
 top_P = st.sidebar.slider(
-    "Тop P :",
+    label = "Тop P :",
     min_value=0,  # Minimum value
     max_value=1,
     # Default value or max allowed if less
@@ -119,7 +119,7 @@ if prompt := st.chat_input("Задавайте вопрос ..."):
                 for m in st.session_state.messages
             ],
             max_tokens=max_tokens,
-            temperature = temp,
+            temperature = temper,
             top_p = top_P,
             stream=True,
             stop = None
