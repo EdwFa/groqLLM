@@ -100,7 +100,7 @@ def main():
         response = conversation.predict(human_input=user_question)
         message = {'human':user_question,'AI':response}
         st.session_state.chat_history.append(message)
-        st.write("Chatbot:", response)
+        st.write("Пациент :", response)
 
 if __name__ == "__main__":
     main()
