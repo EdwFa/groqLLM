@@ -152,3 +152,4 @@ websocket-client==1.4.1
 widgetsnbextension==4.0.3
 yarl==1.9.4
 zipp==3.17.0
+python-dotenv~=1.0.1
