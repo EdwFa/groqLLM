@@ -34,6 +34,7 @@ def clear_plot():
                     <style>
                     #MainMenu {visibility: hidden;}
                     footer {visibility: hidden;}
+                    #GithubIcon {visibility: hidden;}
                     </style>
                     """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True)
@@ -55,7 +56,7 @@ def main():
     """
     st.set_page_config(layout='wide', )
     clear_plot()
-    clear_git()
+    # clear_git()
 
     load_dotenv()
     # Get Groq API key
