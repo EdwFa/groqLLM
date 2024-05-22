@@ -29,11 +29,24 @@ def create_conversational_chain(model, memory):
     ) | model | StrOutputParser()
     return conversational_qa_chain
 
+def clear_plot():
+    hide_streamlit_style = """
+                    <style>
+                    #MainMenu {visibility: hidden;}
+                    footer {visibility: hidden;}
+                    </style>
+                    """
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
 def main():
     """
     This function is the main entry point of the application. It sets up the Groq client,
     the Streamlit interface, and handles the chat interaction.
     """
+    st.set_page_config(layout='wide', )
+    clear_plot()
+
     load_dotenv()
     # Get Groq API key
     groq_api_key = os.getenv("GROQ_API_KEY")
@@ -104,8 +117,11 @@ def main():
                                          "У брата диагностирован рак толстой кишки."
                                          "Отвечай на вопросы доктора, он хочет поставить тебе "
                                          "диагноз.",
-                                         height=720,
+                                         height=640,
                                          )
+
+
+
     update_patient_info(system_prompt)
 
     memory = ConversationBufferWindowMemory(k=conversational_memory_length,
