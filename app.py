@@ -38,6 +38,15 @@ def clear_plot():
                     """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+def clear_git():
+    # Add custom CSS to hide the GitHub icon
+    hide_github_icon = """
+    #GithubIcon {
+      visibility: hidden;
+    }
+    """
+    st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 
 def main():
     """
@@ -46,6 +55,7 @@ def main():
     """
     st.set_page_config(layout='wide', )
     clear_plot()
+    clear_git()
 
     load_dotenv()
     # Get Groq API key
