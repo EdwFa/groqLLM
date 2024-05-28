@@ -128,6 +128,7 @@ try:
         stringIo = StringIO(uploaded_file.getvalue().decode("utf-8"))
         text = stringIo.read()
         epicrise = Epicrise(text=text)
+
 except Exception as e:
     st.write(e)
 
