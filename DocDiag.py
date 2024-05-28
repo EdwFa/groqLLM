@@ -1,9 +1,12 @@
 import streamlit as st
 from typing import Generator
 from groq import Groq
-
+from dotenv import load_dotenv
 from io import StringIO
+import os
 from parser import Epicrise
+
+load_dotenv()
 
 st.set_page_config(page_icon="💬", layout="wide",
                    page_title="Грокаем гроком LLM")
@@ -154,6 +157,15 @@ if query := st.chat_input("Задавайте вопрос ..."):
 
     # Fetch response from Groq API
     try:
+        # Initialize the Groq client
+        full_response = None
+        groq_api_key = os.getenv("GROQ_API_KEY")
+        # pinecone_api_key = st.secrets["PINECONE_API_KEY"]
+        # pinecone_index_name = "presidential-speeches"
+        client = Groq(
+            api_key=groq_api_key
+        )
+
         chat_completion = client.chat.completions.create(
             model=model_option,
             messages=[
