@@ -66,9 +66,6 @@ def main():
     with col:
         st.image('img.png')
 
-    # The title and greeting message of the Streamlit application
-    st.title("Имитатор пациента")
-
     # Add customization options to the sidebar
     st.sidebar.title('Настройки')
     model = 'llama3-70b-8192'
@@ -92,7 +89,12 @@ def main():
     #                          "но они не помогают его сбросить."
     #                          "Ты любишь проводить время с семьей на природе и пикники.")
 
-    with st.sidebar.expander("Пациент "):
+    col1, col2 = st.columns([4, 2])
+    # The title and greeting message of the Streamlit application
+    st.title("Имитатор пациента")
+
+    with col2:
+        st.header("Пациент")
         system_prompt = st.text_area("Профиль пациента :",
                                          "Тебе 45 лет и твое имя Сидор Пеликанович."
                                          "Ты работаешь кочегаром в котельной городской больницы, "
@@ -153,14 +155,15 @@ def main():
 
     # Chat history container
     chat_container = st.container()
-    with chat_container:
-        for message in st.session_state.chat_history:
-            with st.chat_message("user"):
-                st.markdown(message['human'])
-            with st.chat_message("assistant"):
-                st.markdown(message['AI'])
+    with col1:
+        with chat_container:
+            for message in st.session_state.chat_history:
+                with st.chat_message("user"):
+                    st.markdown(message['human'])
+                with st.chat_message("assistant"):
+                    st.markdown(message['AI'])
 
-    user_question = st.text_input("Вопросы доктора ... ")
+        user_question = st.text_input("Вопросы доктора ... ")
 
     # Initialize Groq Langchain chat object
     groq_chat = ChatGroq(
@@ -186,11 +189,12 @@ def main():
         st.session_state.chat_history.append(message)
 
         # Update chat history container with new messages
-        with chat_container:
-            with st.chat_message("user"):
-                st.markdown(user_question)
-            with st.chat_message("assistant"):
-                st.markdown(response)
+        with col1:
+            with chat_container:
+                with st.chat_message("user"):
+                    st.markdown(user_question)
+                with st.chat_message("assistant"):
+                    st.markdown(response)
 
 
 if __name__ == "__main__":
