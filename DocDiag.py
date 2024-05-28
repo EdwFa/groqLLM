@@ -128,8 +128,6 @@ try:
         stringIo = StringIO(uploaded_file.getvalue().decode("utf-8"))
         text = stringIo.read()
         epicrise = Epicrise(text=text)
-        st.write(epicrise.get_disease())
-        print(epicrise.get_text())
 except Exception as e:
     st.write(e)
 
@@ -147,9 +145,9 @@ def generate_chat_responses(chat_completion) -> Generator[str, None, None]:
             yield chunk.choices[0].delta.content
 
 if query := st.chat_input("Задавайте вопрос ..."):
-    prompt = query + '. ' + patient
+    prompt = query + ' ' + patient
     if epicrise is not None:
-        prompt += '. ' +  epicrise.get_text()
+        prompt += ' ' +  epicrise.get_text()
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.chat_message("user", avatar='👨‍💻'):

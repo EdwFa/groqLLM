@@ -8,7 +8,7 @@ class Epicrise:
         text : str = ''
         text += self.soup.find('code', code='COMPLNTS').parent.find('text').text
         text += self.soup.find('code', code='ANAM').parent.find('text').text
-        text += self.soup.find('code', code='PHYS').parent.find('entry').find('value').text
+        # text += self.soup.find('code', code='PHYS').parent.find('entry').find('value').text.string
         for row in  self.soup.find('code', code='RESINSTR').parent.find_all('entry'):
             res = row.find('code')['displayname']
             info = row.find('value').text
