@@ -16,5 +16,8 @@ class Epicrise:
         return text
 
     def get_disease(self):
-        main_dis = self.soup.find('code', code='DGN').parent.find('entryrelationship').find('value')
-        return main_dis['code']  + ' ' + main_dis['displayname']
+        try:
+            main_dis = self.soup.find('code', code='DGN').parent.find('entryrelationship').find('value')
+            return main_dis['code']  + ' ' + main_dis['displayname']
+        except Exception as e:
+            return ''
