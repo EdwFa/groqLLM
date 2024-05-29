@@ -3,7 +3,7 @@ from typing import Generator
 from groq import Groq
 
 st.set_page_config(page_icon="💬", layout="wide",
-                   page_title="Грокаем гроком LLM")
+                   page_title="Грокаем LLM")
 
 hide_streamlit_style = """
 <style>
@@ -31,7 +31,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 if "selected_model" not in st.session_state:
-    st.session_state.selected_model = None
+    st.session_state.selected_model = "LLaMA3-70b-8192"
 
 # Define model details
 models = {
@@ -44,30 +44,31 @@ models = {
 # Add customization options to the sidebar
 st.sidebar.title('Параметры')
 #system_prompt = st.sidebar.text_input("Промт:")
-model_option = st.sidebar.selectbox(
-    "Модель:",
-    options=list(models.keys()),
-    format_func=lambda x: models[x]["name"],
-    index=1  # Default to llama3-70B
-)
+
+# model_option = st.sidebar.selectbox(
+#     "Модель:",
+#     options=list(models.keys()),
+#     format_func=lambda x: models[x]["name"],
+#     index=1  # Default to llama3-70B
+# )
+model_option = "LLaMA3-70b-8192"
 # Detect model change and clear chat history if model has changed
 if st.session_state.selected_model != model_option:
     st.session_state.messages = []
     st.session_state.selected_model = model_option
 
-max_tokens_range = models[model_option]["tokens"]
-
+# max_tokens_range = models[model_option]["tokens"]
 # Adjust max_tokens slider dynamically based on the selected model
-max_tokens = st.sidebar.slider(
-    "Максимальное кол-во токенов:",
-    min_value=512,  # Minimum value
-    max_value=max_tokens_range,
-    # Default value or max allowed if less
-    value=min(32768, max_tokens_range),
-    step=256,
-    help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
-)
-
+# max_tokens = st.sidebar.slider(
+#     "Максимальное кол-во токенов:",
+#     min_value=512,  # Minimum value
+#     max_value=max_tokens_range,
+#     # Default value or max allowed if less
+#     value=min(32768, max_tokens_range),
+#     step=256,
+#     help=f"Настройте максимальное количество токенов для ответа модели. Для выбранной модели: {max_tokens_range}"
+# )
+max_tokens = 8192
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
     avatar = '🤖' if message["role"] == "assistant" else '👨‍💻'
