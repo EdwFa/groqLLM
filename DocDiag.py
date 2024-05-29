@@ -1,6 +1,12 @@
 import streamlit as st
 from typing import Generator
 from groq import Groq
+from dotenv import load_dotenv
+from io import StringIO
+import os
+from parser import Epicrise
+
+load_dotenv()
 
 st.set_page_config(page_icon="💬", layout="wide",
                    page_title="Грокаем гроком LLM")
@@ -23,9 +29,12 @@ def icon(emoji: str):
 #icon("🏎️")
 st.subheader("Sechenov.DataMed - Quality assessor for LLM models", divider="rainbow", anchor=False)
 
-client = Groq(
-    api_key=st.secrets["GROQ_API_KEY"],
-)
+# для прода извлекаем api_key из secret
+# client = Groq(
+#     api_key=st.secrets["GROQ_API_KEY"],
+# )
+# для локальной версии задаем явно
+api_key='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'
 
 # Initialize chat history and selected model
 if "messages" not in st.session_state:
@@ -76,6 +85,7 @@ max_tokens = st.sidebar.slider(
 )
 
 
+
 # temper = st.sidebar.number_input(
 #     "Установите температуру модели",
 #     min_value=0,
@@ -103,6 +113,25 @@ max_tokens = st.sidebar.slider(
 #     help="Настройте параметр Top_P (по умолчанию=1)"
 # )
 
+patient = st.sidebar.text_area("Пациент",
+                         "Тебе 45 лет и тебя зовут Сидор Пеликанович."
+                         "Ты работаешь кочегаром в котельной городской больницы."
+                         "У тебя избыточный вес, ты пробовал разные диеты, "
+                         "но они не помогают его сбросить."
+                         "Ты любишь проводить время с семьей на природе и пикники.",
+                     height = 420)
+
+epicrise = None
+try:
+    uploaded_file = st.sidebar.file_uploader("Choose a xml File")
+    if uploaded_file is not None:
+        stringIo = StringIO(uploaded_file.getvalue().decode("utf-8"))
+        text = stringIo.read()
+        epicrise = Epicrise(text=text)
+
+except Exception as e:
+    st.write(e)
+
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
@@ -116,7 +145,10 @@ def generate_chat_responses(chat_completion) -> Generator[str, None, None]:
         if chunk.choices[0].delta.content:
             yield chunk.choices[0].delta.content
 
-if prompt := st.chat_input("Задавайте вопрос ..."):
+if query := st.chat_input("Задавайте вопрос ..."):
+    prompt = query + ' ' + patient
+    if epicrise is not None:
+        prompt += ' ' +  epicrise.get_text()
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.chat_message("user", avatar='👨‍💻'):
@@ -124,6 +156,15 @@ if prompt := st.chat_input("Задавайте вопрос ..."):
 
     # Fetch response from Groq API
     try:
+        # Initialize the Groq client
+        full_response = None
+        groq_api_key = os.getenv("GROQ_API_KEY")
+        # pinecone_api_key = st.secrets["PINECONE_API_KEY"]
+        # pinecone_index_name = "presidential-speeches"
+        client = Groq(
+            api_key=groq_api_key
+        )
+
         chat_completion = client.chat.completions.create(
             model=model_option,
             messages=[
