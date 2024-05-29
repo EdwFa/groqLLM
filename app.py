@@ -7,6 +7,7 @@ from langchain.globals import set_verbose
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnableMap, RunnablePassthrough
 from langchain_groq import ChatGroq
+from langchain.memory import ConversationBufferWindowMemory
 
 from prompt_service import get_patient_prompt, format_chat_history, CONDENSE_QUESTION_PROMPT, update_patient_info
 
