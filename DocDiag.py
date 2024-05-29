@@ -147,7 +147,7 @@ if query := st.chat_input("Задавайте вопрос ..."):
     prompt = task
     if epicrise is not None:
         prompt += ' ' +  epicrise.get_text()
-    prompt += ' ' + query
+    prompt += '.  ' + query
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.chat_message("user", avatar='👨‍💻'):
