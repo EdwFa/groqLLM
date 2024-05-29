@@ -42,7 +42,7 @@ models = {
 }
 
 # Add customization options to the sidebar
-st.sidebar.title('Параметры')
+# st.sidebar.title('Параметры')
 #system_prompt = st.sidebar.text_input("Промт:")
 
 # model_option = st.sidebar.selectbox(
