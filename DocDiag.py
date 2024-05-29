@@ -121,7 +121,7 @@ task = st.sidebar.text_area("Пациент из AI'Doctor",
 
 epicrise = None
 try:
-    uploaded_file = st.sidebar.file_uploader("Choose a xml File")
+    uploaded_file = st.sidebar.file_uploader("Выберите xml в формате AIDoc_..._.xml")
     if uploaded_file is not None:
         stringIo = StringIO(uploaded_file.getvalue().decode("utf-8"))
         text = stringIo.read()
