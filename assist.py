@@ -14,7 +14,6 @@ footer {visibility: hidden;}
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-
 def icon(emoji: str):
     st.write(
         f'<span style="font-size: 78px; line-height: 1">{emoji}</span>',
