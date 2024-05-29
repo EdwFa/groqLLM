@@ -1,15 +1,16 @@
 import os
+
 import streamlit as st
-import pandas as pd
-import numpy as np
 from groq import Groq
-from pinecone import Pinecone
 from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
 from langchain_pinecone import PineconeVectorStore
+from pinecone import Pinecone
+
 
 def get_relevant_excerpts(user_question, docsearch):
     """
-    This function retrieves the most relevant excerpts from presidential speeches based on the user's question.
+    This function retrieves the most relevant excerpts from presidential speeches based on the
+    user's question.
 
     Parameters:
     user_question (str): The question asked by the user.
@@ -22,14 +23,16 @@ def get_relevant_excerpts(user_question, docsearch):
     # Perform a similarity search on the Pinecone vector store using the user's question
     relevent_docs = docsearch.similarity_search(user_question)
 
-    # Extract the page content from the top 3 most relevant documents and join them into a single string
+    # Extract the page content from the top 3 most relevant documents and join them into a single
+    # string
     relevant_excerpts = '\n\n------------------------------------------------------\n\n'.join(
         [doc.page_content for doc in relevent_docs[:3]])
 
     return relevant_excerpts
 
 
-def presidential_speech_chat_completion(client, model, user_question, relevant_excerpts, additional_context):
+def presidential_speech_chat_completion(client, model, user_question, relevant_excerpts,
+                                        additional_context):
     """
     This function generates a response to the user's question using a pre-trained model.
 
@@ -37,7 +40,8 @@ def presidential_speech_chat_completion(client, model, user_question, relevant_e
     client (Groq): The Groq client used to interact with the pre-trained model.
     model (str): The name of the pre-trained model.
     user_question (str): The question asked by the user.
-    relevant_excerpts (str): A string containing the most relevant excerpts from presidential speeches.
+    relevant_excerpts (str): A string containing the most relevant excerpts from presidential
+    speeches.
     additional_context (str): Additional context provided by the user.
 
     Returns:
@@ -47,7 +51,8 @@ def presidential_speech_chat_completion(client, model, user_question, relevant_e
     # Define the system prompt
     system_prompt = '''
     You are a presidential historian. Given the user's question and relevant excerpts from 
-    presidential speeches, answer the question by including direct quotes from presidential speeches. 
+    presidential speeches, answer the question by including direct quotes from presidential 
+    speeches. 
     When using a quote, site the speech that it was from (ignoring the chunk).
     '''
 
@@ -67,7 +72,8 @@ def presidential_speech_chat_completion(client, model, user_question, relevant_e
             },
             {
                 "role": "user",
-                "content": "User Question: " + user_question + "\n\nRelevant Speech Exerpt(s):\n\n" + relevant_excerpts,
+                "content": "User Question: " + user_question + "\n\nRelevant Speech Exerpt("
+                                                               "s):\n\n" + relevant_excerpts,
             }
         ],
         model=model
@@ -81,9 +87,12 @@ def presidential_speech_chat_completion(client, model, user_question, relevant_e
 
 def main():
     """
-    This is the main function that runs the application. It initializes the Groq client and the SentenceTransformer model,
-    gets user input from the Streamlit interface, retrieves relevant excerpts from presidential speeches based on the user's question,
-    generates a response to the user's question using a pre-trained model, and displays the response.
+    This is the main function that runs the application. It initializes the Groq client and the
+    SentenceTransformer model,
+    gets user input from the Streamlit interface, retrieves relevant excerpts from presidential
+    speeches based on the user's question,
+    generates a response to the user's question using a pre-trained model, and displays the
+    response.
     """
 
     embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
@@ -107,7 +116,10 @@ def main():
     # Display the title and introduction of the application
     st.title("Presidential Speeches RAG")
     multiline_text = """
-    Welcome! Ask questions about U.S. presidents, like "What were George Washington's views on democracy?" or "What did Abraham Lincoln say about national unity?". The app matches your question to relevant excerpts from presidential speeches and generates a response using a pre-trained model.
+    Welcome! Ask questions about U.S. presidents, like "What were George Washington's views on 
+    democracy?" or "What did Abraham Lincoln say about national unity?". The app matches your 
+    question to relevant excerpts from presidential speeches and generates a response using a 
+    pre-trained model.
     """
 
     st.markdown(multiline_text, unsafe_allow_html=True)
@@ -127,7 +139,8 @@ def main():
     if user_question:
         pinecone_index_name = "presidential-speeches"
         relevant_excerpts = get_relevant_excerpts(user_question, docsearch)
-        response = presidential_speech_chat_completion(client, model, user_question, relevant_excerpts,
+        response = presidential_speech_chat_completion(client, model, user_question,
+                                                       relevant_excerpts,
                                                        additional_context)
         st.write(response)
 
@@ -137,8 +150,5 @@ if __name__ == '__main__':
     api_key = os.getenv('GROQ_API_KEY')
     print(api_key)
     main()
-
-
-
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
