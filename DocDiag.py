@@ -27,14 +27,14 @@ def icon(emoji: str):
         unsafe_allow_html=True,
     )
 #icon("🏎️")
-st.subheader("Sechenov.DataMed - Quality assessor for LLM models", divider="rainbow", anchor=False)
+st.subheader("Sechenov.DataMed - Quality assessor for diagnostic AIDoc Patients LLM models", divider="rainbow", anchor=False)
 
-# для прода извлекаем api_key из secret
-# client = Groq(
-#     api_key=st.secrets["GROQ_API_KEY"],
-# )
+#для прода извлекаем api_key из secret
+client = Groq(
+    api_key=st.secrets["GROQ_API_KEY"],
+)
 # для локальной версии задаем явно
-api_key='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'
+#api_key='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'
 
 # Initialize chat history and selected model
 if "messages" not in st.session_state:
