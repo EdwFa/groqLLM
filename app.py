@@ -64,11 +64,13 @@ def main():
 
     load_dotenv()
     # Get Groq API key
-    groq_api_key = os.getenv("GROQ_API_KEY")
+    # groq_api_key = os.getenv("GROQ_API_KEY")
+    groq_api_key = st.secrets["KEY"]
 
     spacer, col = st.columns([5, 1])
     with col:
         st.image('img.png')
+
 
     # The title and greeting message of the Streamlit application
     st.title("Имитатор пациента")
