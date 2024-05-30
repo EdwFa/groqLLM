@@ -75,7 +75,9 @@ def main():
 
     # Add customization options to the sidebar
     st.sidebar.title('Настройки')
-    model = 'llama3-70b-8192'
+    # model = 'llama3-70b-8192'
+    model = st.secrets["for_patient"]
+
     conversational_memory_length = st.sidebar.slider('Глубина памяти:', 1, 10, value=7)
 
     max_tokens = st.sidebar.slider(
